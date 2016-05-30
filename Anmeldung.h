@@ -27,6 +27,8 @@ namespace VorlageWindowsForm {
 			InitializeComponent();
 
 			this->verbindung = verbindung; 
+			this->login = false; 
+			this->login_name = ""; 
 			
 
 		}
@@ -55,8 +57,10 @@ namespace VorlageWindowsForm {
 	 DataTable^ userTab;  
 	 OleDbDataAdapter^ adapter;
 	 OleDbCommand^ getUserTable; 
-	 		
 
+	 bool login; 
+	 String ^login_name; 
+	 		
 
 
 #pragma region Windows Form Designer generated code
@@ -174,9 +178,10 @@ namespace VorlageWindowsForm {
 
 				 if(check(name,passwort) == true )
 				 {
-					 Dashboard ^dash = gcnew Dashboard(name);					 
-					 dash->Show(); 
-					 
+					 this->login=true; 
+					 this->login_name=name; 
+
+					 this->Close(); 
 				 }
 
 				 
@@ -285,6 +290,18 @@ namespace VorlageWindowsForm {
 			
 			}
 
+
+	public: 
+		
+		bool login_erfolgreich()
+		{
+			return login; 
+		}
+
+		String^ get_login_Name()
+		{
+			return login_name; 
+		}
 
 
 }; //end Class

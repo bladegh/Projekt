@@ -3,6 +3,7 @@
 #include "stdafx.h"
 #include "Anmeldung.h"
 #include "MyForm1.h"
+#include "Dashboard.h"
 
 using namespace VorlageWindowsForm;
 using namespace System::Data::OleDb; 
@@ -17,8 +18,6 @@ int main(array<System::String ^> ^args)
 	// Hauptfenster erstellen und ausführen
 
 
-	
-
 
 	//Erstelle Verbindung zur Datenbank
 	String ^verbindung; 
@@ -26,11 +25,21 @@ int main(array<System::String ^> ^args)
 	verbindung="Provider = Microsoft.ACE.OLEDB.12.0; Data Source = H:\\Projekt\\WG_neu.accdb";
 	dbVerbindung=gcnew OleDbConnection(verbindung);
 
-	
+	Anmeldung ^anmeldung = gcnew Anmeldung(dbVerbindung); 
+	Application::Run(anmeldung);
+
+	String ^login_name = anmeldung->get_login_Name();
+
+	if(anmeldung->login_erfolgreich()==true)
+	{
+		Dashboard ^dash = gcnew Dashboard(login_name); 
+		
+		Application::Run(dash);
+
+	}
 
 
-	Application::Run(gcnew Anmeldung(dbVerbindung));
-
+	//Application::Run(anmeldung);
 	//Application::Run(gcnew MyForm());
 	
 
